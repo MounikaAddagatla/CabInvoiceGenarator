@@ -6,17 +6,29 @@ namespace CabInvoiceGenerator
 {
    public class CabInvoice
    {
-        private static int COST_PER_KILOMETER = 10;
-        private static int COST_PER_MINUTE = 1;
-        private static int MINIMUM_FARE = 5;
-        private int cabFare = 0;
+        private static double COST_PER_KILOMETER = 10.0;
+        private static double COST_PER_MINUTE = 1.0;
+        private static double MINIMUM_FARE = 5.0;
+        private double cabFare =0.0;
 
         // ***passing parameter values of distance and time for calu cabFare **//
-        public int CalculateFare(int distance, int time)
+        public double CalculateFare(double distance, double time)
         {
             this.cabFare =(distance * COST_PER_KILOMETER) + (time * COST_PER_MINUTE);
             // cbf = 5*10  +  15*1  ====50 +15=65
             return Math.Max(this.cabFare, MINIMUM_FARE);
         }
-   }
+        //calculate multiple fare
+        public double CalculateMultipleRideFare(List<Ride> rides)
+        {
+            double cabFare = 0.0;
+            foreach (Ride ride in rides)
+            {
+                // Calculate total fare and return it
+                cabFare += this.CalculateFare(ride.distance, ride.time);
+            }
+            return cabFare / rides.Count;
+        }
+       
+    }
 }
