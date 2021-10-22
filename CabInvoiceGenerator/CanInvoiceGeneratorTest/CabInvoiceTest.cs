@@ -44,6 +44,23 @@ namespace CanInvoiceGeneratorTest
             double cabFair =this.cabInvoice.CalculateMultipleRideFare(rides);
             Assert.AreEqual(40.0, cabFair);
         }
-      
+        [Test]
+        public void GivenListOfRides_WhenCalculateFareForMultipleRides_ShouldReturnInvoiceSummaryObject()
+        {
+            List<Ride> rides = new List<Ride>();
+            Ride r1 = new Ride(2.0, 5);
+            Ride r2 = new Ride(3.0, 5);
+            Ride r3 = new Ride(4.0, 5);
+            Ride r4 = new Ride(5.0, 5);
+            rides.Add(r1);
+            rides.Add(r2);
+            rides.Add(r3);
+            rides.Add(r4);
+           
+            InvoiceSummary Obj = cabInvoice.CalculateMultipleRideFareSummary(rides);
+            Assert.AreEqual((double) 160/4, Obj.averageFarePerRide);
+            Assert.AreEqual(160, Obj.totalRideFare);
+            Assert.AreEqual(4, Obj.noOfRides);
+        }
     }
 }

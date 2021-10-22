@@ -10,6 +10,7 @@ namespace CabInvoiceGenerator
         private static double COST_PER_MINUTE = 1.0;
         private static double MINIMUM_FARE = 5.0;
         private double cabFare =0.0;
+     
 
         // ***passing parameter values of distance and time for calu cabFare **//
         public double CalculateFare(double distance, double time)
@@ -18,6 +19,7 @@ namespace CabInvoiceGenerator
             // cbf = 5*10  +  15*1  ====50 +15=65
             return Math.Max(this.cabFare, MINIMUM_FARE);
         }
+
         //calculate multiple fare
         public double CalculateMultipleRideFare(List<Ride> rides)
         {
@@ -29,6 +31,15 @@ namespace CabInvoiceGenerator
             }
             return cabFare / rides.Count;
         }
-       
+        public InvoiceSummary CalculateMultipleRideFareSummary(List<Ride> ridesList)
+        {
+            double totalRideFare = 0.0;
+            foreach (Ride ride in ridesList)
+            {
+                totalRideFare += CalculateFare(ride.distance, ride.time);
+            }
+            return new InvoiceSummary(totalRideFare, ridesList.Count);
+        }
+
     }
 }

@@ -4,34 +4,26 @@ using System.Text;
 
 namespace CabInvoiceGenerator
 {
-    class InvoiceSummary
-    {
-        public double totalFare;
-        public double averageFare;
+   public class InvoiceSummary
+   {
+        public double totalRideFare;
         public int noOfRides;
+        public double averageFarePerRide;
 
-        public InvoiceSummary(double totalFare, int noOfRides)
+
+        // UC 3 Initializes a new instance of the <see cref="InvoiceSummary"/> class.
+        public InvoiceSummary(double totalRideFare, int noOfRides)
         {
-            this.totalFare = totalFare;
+            this.totalRideFare = totalRideFare;
             this.noOfRides = noOfRides;
-            this.averageFare = this.totalFare / this.noOfRides;
+            this.averageFarePerRide = this.totalRideFare / this.noOfRides;
         }
 
-        public override bool Equals(object invoiceSummary)
-        {
-            if (invoiceSummary == null)
-            {
-                return false;
-            }
-            return invoiceSummary is InvoiceSummary summary &&
-                   this.totalFare == summary.totalFare &&
-                   this.averageFare == summary.averageFare &&
-                   this.noOfRides == summary.noOfRides;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(this.totalFare, this.averageFare, this.noOfRides);
-        }
+        // Returns a hash code for this instance.
+        // A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        //public override int GetHashCode()
+        //{
+        //    return this.totalRideFare.GetHashCode() ^ this.noOfRides.GetHashCode() ^ this.averageFarePerRide.GetHashCode();
+        //}
     }
 }
